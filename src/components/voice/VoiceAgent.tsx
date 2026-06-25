@@ -348,8 +348,13 @@ export function VoiceAgent() {
   connectRef.current = connect;
 
   const setupAudio = useCallback(async () => {
+    // getUserMedia only exists in a secure context (https or http://localhost).
+    if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia) {
+      throw new Error("insecure_context");
+    }
     // playback graph @ 24kHz
     const playCtx = new AudioContext({ sampleRate: 24000 });
+    await playCtx.resume().catch(() => {});
     const analyserOut = playCtx.createAnalyser();
     analyserOut.fftSize = 256;
     analyserOut.connect(playCtx.destination);
@@ -414,9 +419,15 @@ export function VoiceAgent() {
     } catch (e: any) {
       if (e?.message === "unconfigured") {
         setStatus("unconfigured");
-      } else if (e?.name === "NotAllowedError") {
+      } else if (e?.message === "insecure_context") {
         setStatus("error");
-        setErrorMsg("Microphone access is needed to talk.");
+        setErrorMsg("Open the site on http://localhost:3000 or HTTPS — the mic is blocked on plain-IP/insecure pages.");
+      } else if (e?.name === "NotAllowedError" || e?.name === "SecurityError") {
+        setStatus("error");
+        setErrorMsg("Mic blocked. Allow it via the icon in your browser's address bar — and on macOS in System Settings ▸ Privacy & Security ▸ Microphone — then tap to retry.");
+      } else if (e?.name === "NotFoundError" || e?.name === "OverconstrainedError") {
+        setStatus("error");
+        setErrorMsg("No microphone was found. Plug one in or check your input device.");
       } else {
         setStatus("error");
         setErrorMsg(e?.message || "Couldn't start the voice session.");
