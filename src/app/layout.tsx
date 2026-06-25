@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/Footer";
 import { CartProvider } from "@/components/cart/CartProvider";
 import { CartSheet } from "@/components/cart/CartSheet";
 import { VoiceAgent } from "@/components/voice/VoiceAgent";
+import { VoiceControlProvider } from "@/components/voice/VoiceControlProvider";
 import { SITE } from "@/lib/site";
 
 const syne = Syne({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-syne", display: "swap" });
@@ -30,12 +31,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={`${syne.variable} ${inter.variable} ${grotesk.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         <CartProvider>
-          <AuroraBackground />
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <CartSheet />
-          <VoiceAgent />
+          <VoiceControlProvider>
+            <AuroraBackground />
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <CartSheet />
+            <VoiceAgent />
+          </VoiceControlProvider>
         </CartProvider>
       </body>
     </html>

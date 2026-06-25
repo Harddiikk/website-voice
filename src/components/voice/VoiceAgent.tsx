@@ -6,6 +6,7 @@ import type { FunctionDeclaration } from "@google/genai";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useCart } from "@/components/cart/CartProvider";
+import { useVoiceControl } from "@/components/voice/VoiceControlProvider";
 import { getProduct, searchProducts } from "@/lib/products";
 import {
   buildSystemInstruction,
@@ -56,6 +57,7 @@ function b64decode(b64: string) {
 export function VoiceAgent() {
   const router = useRouter();
   const { addItem, setOpen } = useCart();
+  const voiceControl = useVoiceControl();
 
   const [status, setStatus] = useState<Status>("idle");
   const [expanded, setExpanded] = useState(false);
@@ -79,8 +81,8 @@ export function VoiceAgent() {
   const rafRef = useRef<number>(0);
   const stoppingRef = useRef(false);
   const barsRef = useRef<(HTMLSpanElement | null)[]>([]);
-  const actionsRef = useRef({ router, addItem, setOpen });
-  actionsRef.current = { router, addItem, setOpen };
+  const actionsRef = useRef({ router, addItem, setOpen, voiceControl });
+  actionsRef.current = { router, addItem, setOpen, voiceControl };
 
   const flushPlayback = useCallback(() => {
     sourcesRef.current.forEach((s) => {
@@ -163,7 +165,7 @@ export function VoiceAgent() {
       if (sc?.turnComplete) setCaption("");
 
       if (message.toolCall) {
-        const { router, addItem, setOpen } = actionsRef.current;
+        const { router, addItem, setOpen, voiceControl } = actionsRef.current;
         const functionResponses = [];
         for (const fc of message.toolCall.functionCalls ?? []) {
           let result = "ok";
@@ -200,6 +202,23 @@ export function VoiceAgent() {
                   : "no matches found";
                 break;
               }
+              case "select_size":
+                result = voiceControl.selectSize(Number(fc.args?.size)).message;
+                break;
+              case "select_color":
+                result = voiceControl.selectColor(fc.args?.colorway ?? fc.args?.color).message;
+                break;
+              case "set_quantity":
+                result = voiceControl.setQty(Number(fc.args?.quantity)).message;
+                break;
+              case "add_selected_to_cart":
+                result = voiceControl.addActiveToCart().message;
+                break;
+              case "place_order":
+                result = fc.args?.confirm
+                  ? voiceControl.placeOrder().message
+                  : "Ask the shopper to confirm out loud before placing the order.";
+                break;
               default:
                 result = "unknown tool";
             }
@@ -285,11 +304,55 @@ export function VoiceAgent() {
         },
         {
           name: "search_catalog",
-          description: "Search the catalog by keyword or need; returns matching products.",
+          description: "Search the catalog by a single keyword or need; returns matching products.",
           parameters: {
             type: Type.OBJECT,
             properties: { query: { type: Type.STRING } },
             required: ["query"],
+          },
+        },
+        {
+          name: "select_size",
+          description:
+            "Select a US size on the product detail page currently open (highlights it like a tap). Only valid after view_product has opened a product.",
+          parameters: {
+            type: Type.OBJECT,
+            properties: { size: { type: Type.NUMBER, description: "US size; must be one the product offers" } },
+            required: ["size"],
+          },
+        },
+        {
+          name: "select_color",
+          description: "Select a colorway on the open product: 'primary', 'shadow', or 'accent'.",
+          parameters: {
+            type: Type.OBJECT,
+            properties: { colorway: { type: Type.STRING, description: "primary | shadow | accent" } },
+            required: ["colorway"],
+          },
+        },
+        {
+          name: "set_quantity",
+          description: "Set how many pairs of the open product the shopper wants (minimum 1).",
+          parameters: {
+            type: Type.OBJECT,
+            properties: { quantity: { type: Type.INTEGER } },
+            required: ["quantity"],
+          },
+        },
+        {
+          name: "add_selected_to_cart",
+          description:
+            "Add the OPEN product to the bag using the size, colorway and quantity selected on screen. Prefer this once a size is selected.",
+          parameters: { type: Type.OBJECT, properties: {} },
+        },
+        {
+          name: "place_order",
+          description:
+            "Place / check out the order for everything in the bag. Final committing step — only call with confirm=true after the shopper clearly agrees out loud.",
+          parameters: {
+            type: Type.OBJECT,
+            properties: { confirm: { type: Type.BOOLEAN, description: "true only after an explicit spoken yes" } },
+            required: ["confirm"],
           },
         },
       ];

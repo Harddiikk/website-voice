@@ -4,10 +4,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus, ShoppingBag, X } from "lucide-react";
 import Link from "next/link";
 import { useCart } from "@/components/cart/CartProvider";
+import { useVoiceControl } from "@/components/voice/VoiceControlProvider";
 import { formatPrice } from "@/lib/utils";
 
 export function CartSheet() {
   const { lines, isOpen, setOpen, count, subtotal, updateQty, removeLine } = useCart();
+  const { placeOrder } = useVoiceControl();
 
   return (
     <AnimatePresence>
@@ -128,7 +130,9 @@ export function CartSheet() {
                     {formatPrice(subtotal)}
                   </span>
                 </div>
-                <button className="btn-primary w-full">Checkout</button>
+                <button onClick={() => placeOrder()} className="btn-primary w-full">
+                  Checkout
+                </button>
                 <p className="mt-3 text-center text-xs text-[var(--text-subtle)]">
                   Shipping &amp; taxes calculated at checkout.
                 </p>

@@ -1,9 +1,9 @@
 "use client";
 
 import { Check, Heart, ShoppingBag } from "lucide-react";
-import { useState } from "react";
-import { useCart } from "@/components/cart/CartProvider";
+import { useEffect, useState } from "react";
 import { ShoeStage } from "@/components/three/ShoeStage";
+import { useVoiceControl } from "@/components/voice/VoiceControlProvider";
 import { RatingStars } from "@/components/ui/RatingStars";
 import { Badge } from "@/components/ui/Badge";
 import { MagneticButton } from "@/components/ui/MagneticButton";
@@ -11,15 +11,24 @@ import type { Product } from "@/types";
 import { cn, formatPrice } from "@/lib/utils";
 
 export function ProductDetailClient({ product }: { product: Product }) {
-  const { addItem } = useCart();
-  const [color, setColor] = useState(product.colorways[0]);
-  const [size, setSize] = useState<number | null>(null);
-  const [qty, setQty] = useState(1);
+  const { selection, registerProduct, unregisterProduct, selectSize, selectColor, setQty, addActiveToCart } =
+    useVoiceControl();
   const [wished, setWished] = useState(false);
   const [added, setAdded] = useState(false);
 
+  // Make this the active product for voice control; reset on leave.
+  useEffect(() => {
+    registerProduct(product);
+    return () => unregisterProduct(product.id);
+  }, [product, registerProduct, unregisterProduct]);
+
+  // Both voice and clicks read/write the same shared selection.
+  const color = selection.color ?? product.colorways[0];
+  const size = selection.size;
+  const qty = selection.qty;
+
   function handleAdd() {
-    addItem(product, size ?? undefined, qty);
+    addActiveToCart();
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   }
@@ -59,7 +68,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
             {product.colorways.map((c) => (
               <button
                 key={c}
-                onClick={() => setColor(c)}
+                onClick={() => selectColor(c)}
                 className={cn(
                   "h-10 w-10 rounded-full border-2 transition",
                   color === c ? "border-[var(--primary)] ring-2 ring-[var(--primary)]/40" : "border-black/15",
@@ -83,7 +92,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
             {product.sizes.map((s) => (
               <button
                 key={s}
-                onClick={() => setSize(s)}
+                onClick={() => selectSize(s)}
                 className={cn(
                   "font-tech rounded-xl border py-3 text-sm transition",
                   size === s
@@ -101,7 +110,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
         <div className="mt-8 flex items-center gap-3">
           <div className="flex items-center gap-3 rounded-full border border-black/[0.08] px-2 py-1.5">
             <button
-              onClick={() => setQty((q) => Math.max(1, q - 1))}
+              onClick={() => setQty(qty - 1)}
               className="grid h-8 w-8 place-items-center rounded-full transition hover:bg-black/[0.06]"
               aria-label="Decrease quantity"
             >
@@ -109,7 +118,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
             </button>
             <span className="font-tech w-5 text-center">{qty}</span>
             <button
-              onClick={() => setQty((q) => q + 1)}
+              onClick={() => setQty(qty + 1)}
               className="grid h-8 w-8 place-items-center rounded-full transition hover:bg-black/[0.06]"
               aria-label="Increase quantity"
             >
@@ -142,7 +151,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
         </div>
         {!size && (
           <p className="mt-3 text-xs text-[var(--text-subtle)]">
-            Tip: pick a size, or just ask the concierge — &quot;add the {product.name} in my size&quot;.
+            Tip: pick a size, or just ask Mia — &quot;add the {product.name} in my size&quot;.
           </p>
         )}
 
