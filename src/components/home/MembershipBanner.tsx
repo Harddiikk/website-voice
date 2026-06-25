@@ -7,13 +7,8 @@ export function MembershipBanner() {
   return (
     <section className="mx-auto max-w-site px-5 py-20 md:px-8">
       <FadeUp>
-        <div className="border-iris relative overflow-hidden rounded-[2rem] border border-white/10 px-6 py-14 text-center md:px-16 md:py-20">
-          <div className="aurora absolute inset-0 -z-10 opacity-70" />
-          <div
-            className="absolute left-1/2 top-0 -z-10 h-64 w-64 -translate-x-1/2 rounded-full blur-3xl"
-            style={{ background: "rgba(124,92,255,0.4)" }}
-          />
-          <p className="font-tech mb-3 text-xs uppercase tracking-[0.3em] text-[var(--primary-soft)]">
+        <div className="relative overflow-hidden rounded-[2rem] bg-[var(--surface-2)] px-6 py-16 text-center md:px-16 md:py-24">
+          <p className="font-tech mb-3 text-xs uppercase tracking-[0.3em] text-[var(--text-subtle)]">
             AURELIA Society
           </p>
           <h2 className="font-display mx-auto max-w-2xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl">
@@ -25,7 +20,7 @@ export function MembershipBanner() {
           <ul className="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[var(--text-muted)]">
             {perks.map((p) => (
               <li key={p} className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[var(--gold)]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--primary)]" />
                 {p}
               </li>
             ))}

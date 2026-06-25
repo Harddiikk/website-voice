@@ -74,7 +74,7 @@ function ProceduralShoe({ primary = "#e23744", accent = "#1b1b1f", sole = "#f5f5
 
 const Loader = () => (
   <Html center>
-    <div style={{ color: "#fff", font: "500 13px system-ui", opacity: 0.7 }}>Loading viewer…</div>
+    <div style={{ color: "#1d1d1f", font: "500 13px system-ui", opacity: 0.7 }}>Loading viewer…</div>
   </Html>
 );
 
@@ -87,7 +87,7 @@ export default function ShoeViewer({ colorway }: { colorway?: Colorway }) {
       camera={{ position: [4.5, 1.6, 5], fov: 35 }}
       style={{ width: "100%", height: "100%" }}
     >
-      <color attach="background" args={["#0c0c10"]} />
+      <color attach="background" args={["#f5f5f7"]} />
       <Suspense fallback={<Loader />}>
         <Float speed={1.4} rotationIntensity={0.25} floatIntensity={0.4}>
           <ProceduralShoe {...colorway} />

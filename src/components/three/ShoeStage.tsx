@@ -27,7 +27,7 @@ export function ShoeStage({
   };
 
   return (
-    <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10">
+    <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-black/[0.08]">
       {is3d ? (
         <ShoeViewer colorway={colorway} />
       ) : (
@@ -36,7 +36,7 @@ export function ShoeStage({
 
       <button
         onClick={() => setIs3d((v) => !v)}
-        className="glass absolute bottom-4 right-4 flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition hover:bg-white/10"
+        className="glass absolute bottom-4 right-4 flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition hover:bg-black/[0.06]"
       >
         {is3d ? (
           <>

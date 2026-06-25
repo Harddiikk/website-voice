@@ -34,7 +34,7 @@ const columns = [
 
 export function Footer() {
   return (
-    <footer className="relative mt-32 border-t border-white/10 bg-[var(--surface-1)]/60">
+    <footer className="relative mt-32 border-t border-black/[0.08] bg-[var(--surface-1)]/60">
       <div className="mx-auto max-w-site px-5 py-16 md:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div>
@@ -75,7 +75,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-[var(--text-subtle)] sm:flex-row">
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-black/[0.08] pt-8 text-sm text-[var(--text-subtle)] sm:flex-row">
           <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
           <div className="flex items-center gap-5">
             {SITE.socials.map((s) => (

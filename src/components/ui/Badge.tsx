@@ -1,21 +1,17 @@
 import { cn } from "@/lib/utils";
 
-type BadgeVariant = "default" | "gold" | "sale" | "iris";
+type BadgeVariant = "soft" | "solid";
 
 const variants: Record<BadgeVariant, string> = {
-  default: "bg-white/10 text-[var(--text)] border-white/15",
-  gold: "bg-[rgba(232,184,115,0.12)] text-[var(--gold)] border-[rgba(232,184,115,0.4)]",
-  sale: "bg-[rgba(255,111,181,0.14)] text-[var(--magenta)] border-[rgba(255,111,181,0.4)]",
-  iris: "bg-[rgba(124,92,255,0.16)] text-[var(--primary-soft)] border-[rgba(124,92,255,0.45)]",
+  soft: "bg-black/[0.06] text-[var(--text-muted)] border-black/10",
+  solid: "bg-[var(--primary)] text-white border-transparent",
 };
 
-/** Maps catalog badge labels to a visual variant. */
+/** Emphasis labels render solid black; everything else is a soft gray chip. */
 function variantFor(label: string): BadgeVariant {
   const l = label.toLowerCase();
-  if (["limited", "pro"].includes(l)) return "gold";
-  if (["sale", "drop"].includes(l)) return "sale";
-  if (["new"].includes(l)) return "iris";
-  return "default";
+  if (["new", "limited", "pro", "drop"].includes(l)) return "solid";
+  return "soft";
 }
 
 export function Badge({
@@ -31,7 +27,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "font-tech inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider backdrop-blur",
+        "font-tech inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider",
         variants[resolved],
         className,
       )}

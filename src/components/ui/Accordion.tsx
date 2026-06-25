@@ -7,7 +7,7 @@ import { useState } from "react";
 export function Accordion({ items }: { items: { title: string; content: string }[] }) {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <div className="divide-y divide-white/10 border-y border-white/10">
+    <div className="divide-y divide-black/[0.08] border-y border-black/[0.08]">
       {items.map((item, i) => {
         const isOpen = open === i;
         return (

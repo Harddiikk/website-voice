@@ -43,7 +43,7 @@ export default function ContactPage() {
             <ul className="flex flex-col gap-5">
               {rows.map((r) => (
                 <li key={r.label} className="flex items-start gap-4">
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/5 text-[var(--primary-soft)]">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-black/[0.04] text-[var(--primary-soft)]">
                     <r.icon size={18} />
                   </span>
                   <div>
@@ -54,13 +54,14 @@ export default function ContactPage() {
               ))}
             </ul>
             <div
-              className="mt-auto h-40 rounded-2xl border border-white/10"
+              className="mt-auto h-40 overflow-hidden rounded-2xl border border-black/[0.08] bg-[var(--surface-2)]"
               style={{
-                background:
-                  "radial-gradient(120% 120% at 30% 20%, rgba(124,92,255,0.25), transparent 55%), linear-gradient(160deg,#14141c,#0a0a0f)",
+                backgroundImage:
+                  "linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)",
+                backgroundSize: "28px 28px",
               }}
             >
-              <div className="grid h-full place-items-center text-sm text-[var(--text-subtle)]">
+              <div className="grid h-full place-items-center text-sm text-[var(--text-muted)]">
                 118 Mercer St · SoHo, NY
               </div>
             </div>

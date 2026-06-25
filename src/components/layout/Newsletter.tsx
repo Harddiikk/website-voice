@@ -23,7 +23,7 @@ export function Newsletter({ compact = false }: { compact?: boolean }) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Enter your email"
-        className="w-full rounded-full border border-white/10 bg-white/[0.04] py-3.5 pl-5 pr-14 text-sm text-[var(--text)] outline-none transition placeholder:text-[var(--text-subtle)] focus:border-[var(--primary)]"
+        className="w-full rounded-full border border-black/[0.08] bg-black/[0.03] py-3.5 pl-5 pr-14 text-sm text-[var(--text)] outline-none transition placeholder:text-[var(--text-subtle)] focus:border-[var(--primary)]"
         aria-label="Email address"
       />
       <button

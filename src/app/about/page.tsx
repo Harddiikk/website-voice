@@ -43,7 +43,7 @@ export default function AboutPage() {
 
       {macro && (
         <FadeUp className="mt-14">
-          <ProductPlaceholder product={macro} className="aspect-[16/7] rounded-[2rem] border border-white/10" />
+          <ProductPlaceholder product={macro} className="aspect-[16/7] rounded-[2rem] border border-black/[0.08]" />
         </FadeUp>
       )}
 
@@ -58,7 +58,7 @@ export default function AboutPage() {
         ))}
       </Stagger>
 
-      <div className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/5 md:grid-cols-4">
+      <div className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-black/[0.08] bg-black/[0.04] md:grid-cols-4">
         {stats.map(([n, l]) => (
           <div key={l} className="bg-[var(--surface-1)] p-8 text-center">
             <p className="font-display text-3xl font-bold text-gradient-iris sm:text-4xl">{n}</p>

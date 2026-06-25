@@ -51,7 +51,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <ProductDetailClient product={product} />
 
       {/* spec strip */}
-      <div className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/5 sm:grid-cols-4">
+      <div className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-black/[0.08] bg-black/[0.04] sm:grid-cols-4">
         {[
           ["Weight", "248g"],
           ["Drop", "8mm"],

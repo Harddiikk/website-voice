@@ -27,7 +27,7 @@ export function ProductCard({ product, className }: { product: Product; classNam
       ref={ref}
       onMouseMove={onMove}
       className={cn(
-        "spotlight-card border-iris group relative flex flex-col rounded-3xl border border-white/10 bg-white/[0.03] p-3 transition-transform duration-500 hover:-translate-y-1",
+        "spotlight-card border-iris group relative flex flex-col rounded-3xl border border-black/[0.08] bg-black/[0.02] p-3 transition-transform duration-500 hover:-translate-y-1",
         className,
       )}
     >
@@ -46,7 +46,7 @@ export function ProductCard({ product, className }: { product: Product; classNam
             e.preventDefault();
             addItem(product);
           }}
-          className="absolute bottom-3 right-3 grid h-11 w-11 translate-y-2 place-items-center rounded-full bg-[var(--surface-3)]/80 text-[var(--text)] opacity-0 backdrop-blur transition-all duration-300 hover:bg-[var(--primary)] group-hover:translate-y-0 group-hover:opacity-100"
+          className="absolute bottom-3 right-3 grid h-11 w-11 translate-y-2 place-items-center rounded-full bg-[var(--surface-3)]/90 text-[var(--text)] opacity-0 backdrop-blur transition-all duration-300 hover:bg-[var(--primary)] hover:text-white group-hover:translate-y-0 group-hover:opacity-100"
           aria-label={`Quick add ${product.name}`}
         >
           <Plus size={18} />
@@ -73,7 +73,7 @@ export function ProductCard({ product, className }: { product: Product; classNam
             {product.colorways.map((c) => (
               <span
                 key={c}
-                className="h-3.5 w-3.5 rounded-full border border-white/20"
+                className="h-3.5 w-3.5 rounded-full border border-black/15"
                 style={{ background: c }}
                 title={c}
               />

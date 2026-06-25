@@ -21,7 +21,7 @@ export function CartSheet() {
             onClick={() => setOpen(false)}
           />
           <motion.aside
-            className="glass fixed right-0 top-0 z-[61] flex h-full w-full max-w-md flex-col rounded-none border-l border-white/10"
+            className="glass fixed right-0 top-0 z-[61] flex h-full w-full max-w-md flex-col rounded-none border-l border-black/[0.08]"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -29,14 +29,14 @@ export function CartSheet() {
             role="dialog"
             aria-label="Shopping bag"
           >
-            <header className="flex items-center justify-between border-b border-white/10 px-6 py-5">
+            <header className="flex items-center justify-between border-b border-black/[0.08] px-6 py-5">
               <h2 className="font-display flex items-center gap-2 text-lg">
                 <ShoppingBag size={18} /> Your Bag
                 <span className="font-tech text-sm text-[var(--text-muted)]">({count})</span>
               </h2>
               <button
                 onClick={() => setOpen(false)}
-                className="rounded-full p-2 text-[var(--text-muted)] transition hover:bg-white/10 hover:text-[var(--text)]"
+                className="rounded-full p-2 text-[var(--text-muted)] transition hover:bg-black/[0.06] hover:text-[var(--text)]"
                 aria-label="Close bag"
               >
                 <X size={18} />
@@ -46,7 +46,7 @@ export function CartSheet() {
             <div className="flex-1 overflow-y-auto px-6 py-4">
               {lines.length === 0 ? (
                 <div className="flex h-full flex-col items-center justify-center gap-4 text-center">
-                  <div className="grid h-20 w-20 place-items-center rounded-full bg-white/5">
+                  <div className="grid h-20 w-20 place-items-center rounded-full bg-black/[0.04]">
                     <ShoppingBag size={28} className="text-[var(--text-subtle)]" />
                   </div>
                   <p className="text-[var(--text-muted)]">Your bag is empty.</p>
@@ -59,7 +59,7 @@ export function CartSheet() {
                   {lines.map((line) => (
                     <li
                       key={`${line.product.id}-${line.size}`}
-                      className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-3"
+                      className="flex gap-4 rounded-2xl border border-black/[0.08] bg-black/[0.02] p-3"
                     >
                       <Link
                         href={`/products/${line.product.id}`}
@@ -92,10 +92,10 @@ export function CartSheet() {
                           </button>
                         </div>
                         <div className="mt-auto flex items-center justify-between">
-                          <div className="flex items-center gap-2 rounded-full border border-white/10">
+                          <div className="flex items-center gap-2 rounded-full border border-black/[0.08]">
                             <button
                               onClick={() => updateQty(line.product.id, line.size, line.qty - 1)}
-                              className="grid h-7 w-7 place-items-center rounded-full transition hover:bg-white/10"
+                              className="grid h-7 w-7 place-items-center rounded-full transition hover:bg-black/[0.06]"
                               aria-label="Decrease quantity"
                             >
                               <Minus size={13} />
@@ -103,7 +103,7 @@ export function CartSheet() {
                             <span className="font-tech w-4 text-center text-sm">{line.qty}</span>
                             <button
                               onClick={() => updateQty(line.product.id, line.size, line.qty + 1)}
-                              className="grid h-7 w-7 place-items-center rounded-full transition hover:bg-white/10"
+                              className="grid h-7 w-7 place-items-center rounded-full transition hover:bg-black/[0.06]"
                               aria-label="Increase quantity"
                             >
                               <Plus size={13} />
@@ -121,7 +121,7 @@ export function CartSheet() {
             </div>
 
             {lines.length > 0 && (
-              <footer className="border-t border-white/10 px-6 py-5">
+              <footer className="border-t border-black/[0.08] px-6 py-5">
                 <div className="mb-4 flex items-center justify-between">
                   <span className="text-[var(--text-muted)]">Subtotal</span>
                   <span className="font-tech text-gradient-gold text-xl font-semibold">

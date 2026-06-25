@@ -62,7 +62,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 onClick={() => setColor(c)}
                 className={cn(
                   "h-10 w-10 rounded-full border-2 transition",
-                  color === c ? "border-[var(--primary)] ring-2 ring-[var(--primary)]/40" : "border-white/20",
+                  color === c ? "border-[var(--primary)] ring-2 ring-[var(--primary)]/40" : "border-black/15",
                 )}
                 style={{ background: c }}
                 aria-label={`Select colorway ${c}`}
@@ -87,8 +87,8 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 className={cn(
                   "font-tech rounded-xl border py-3 text-sm transition",
                   size === s
-                    ? "border-[var(--primary)] bg-[rgba(124,92,255,0.15)] text-[var(--text)]"
-                    : "border-white/10 text-[var(--text-muted)] hover:border-white/30",
+                    ? "border-[var(--primary)] bg-[rgba(0,0,0,0.06)] text-[var(--text)]"
+                    : "border-black/[0.08] text-[var(--text-muted)] hover:border-black/20",
                 )}
               >
                 {s}
@@ -99,10 +99,10 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
         {/* buy actions */}
         <div className="mt-8 flex items-center gap-3">
-          <div className="flex items-center gap-3 rounded-full border border-white/10 px-2 py-1.5">
+          <div className="flex items-center gap-3 rounded-full border border-black/[0.08] px-2 py-1.5">
             <button
               onClick={() => setQty((q) => Math.max(1, q - 1))}
-              className="grid h-8 w-8 place-items-center rounded-full transition hover:bg-white/10"
+              className="grid h-8 w-8 place-items-center rounded-full transition hover:bg-black/[0.06]"
               aria-label="Decrease quantity"
             >
               −
@@ -110,7 +110,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
             <span className="font-tech w-5 text-center">{qty}</span>
             <button
               onClick={() => setQty((q) => q + 1)}
-              className="grid h-8 w-8 place-items-center rounded-full transition hover:bg-white/10"
+              className="grid h-8 w-8 place-items-center rounded-full transition hover:bg-black/[0.06]"
               aria-label="Increase quantity"
             >
               +
@@ -133,7 +133,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
             onClick={() => setWished((w) => !w)}
             className={cn(
               "grid h-[52px] w-[52px] place-items-center rounded-full border transition",
-              wished ? "border-[var(--magenta)] text-[var(--magenta)]" : "border-white/10 text-[var(--text-muted)] hover:text-[var(--text)]",
+              wished ? "border-[var(--magenta)] text-[var(--magenta)]" : "border-black/[0.08] text-[var(--text-muted)] hover:text-[var(--text)]",
             )}
             aria-label="Add to wishlist"
           >
@@ -147,7 +147,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
         )}
 
         {/* trust row */}
-        <div className="mt-8 grid grid-cols-3 gap-3 border-t border-white/10 pt-6 text-center text-xs text-[var(--text-subtle)]">
+        <div className="mt-8 grid grid-cols-3 gap-3 border-t border-black/[0.08] pt-6 text-center text-xs text-[var(--text-subtle)]">
           <div>Free 48h shipping</div>
           <div>30-day returns</div>
           <div>Authenticity guaranteed</div>

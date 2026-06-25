@@ -464,14 +464,14 @@ export function VoiceAgent() {
             transition={{ type: "spring", stiffness: 300, damping: 28 }}
             className="glass w-[320px] overflow-hidden p-0"
           >
-            <header className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+            <header className="flex items-center justify-between border-b border-black/[0.08] px-4 py-3">
               <div className="flex items-center gap-2">
                 <Sparkles size={15} className="text-[var(--primary-soft)]" />
                 <span className="font-display text-sm">AURELIA Concierge</span>
               </div>
               <button
                 onClick={stop}
-                className="rounded-full p-1.5 text-[var(--text-muted)] transition hover:bg-white/10 hover:text-[var(--text)]"
+                className="rounded-full p-1.5 text-[var(--text-muted)] transition hover:bg-black/[0.06] hover:text-[var(--text)]"
                 aria-label="End conversation"
               >
                 <X size={16} />
@@ -526,7 +526,7 @@ export function VoiceAgent() {
               </p>
 
               {status === "unconfigured" && (
-                <p className="rounded-xl bg-white/5 px-3 py-2 text-center text-xs text-[var(--text-subtle)]">
+                <p className="rounded-xl bg-black/[0.04] px-3 py-2 text-center text-xs text-[var(--text-subtle)]">
                   Add <code className="text-[var(--primary-soft)]">GEMINI_API_KEY</code> to the server&apos;s
                   environment, then restart.
                 </p>
@@ -539,11 +539,11 @@ export function VoiceAgent() {
               )}
 
               {/* controls */}
-              <div className="flex w-full items-center justify-between gap-2 border-t border-white/10 pt-4">
+              <div className="flex w-full items-center justify-between gap-2 border-t border-black/[0.08] pt-4">
                 <select
                   value={voice}
                   onChange={(e) => changeVoice(e.target.value)}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-[var(--text-muted)] outline-none"
+                  className="rounded-full border border-black/[0.08] bg-black/[0.04] px-3 py-1.5 text-xs text-[var(--text-muted)] outline-none"
                   aria-label="Voice"
                 >
                   {VOICE_OPTIONS.map((v) => (
@@ -554,7 +554,7 @@ export function VoiceAgent() {
                 </select>
                 <button
                   onClick={() => setCaptionsOn((v) => !v)}
-                  className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:text-[var(--text)]"
+                  className="flex items-center gap-1.5 rounded-full border border-black/[0.08] bg-black/[0.04] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:text-[var(--text)]"
                   aria-label="Toggle captions"
                 >
                   {captionsOn ? <Captions size={14} /> : <CaptionsOff size={14} />}

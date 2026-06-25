@@ -11,7 +11,7 @@ export function CraftEditorial() {
     <section className="mx-auto max-w-site px-5 py-20 md:px-8">
       <div className="grid items-center gap-10 lg:grid-cols-2">
         <FadeUp>
-          <ProductPlaceholder product={hero} className="aspect-[4/3] rounded-3xl border border-white/10" />
+          <ProductPlaceholder product={hero} className="aspect-[4/3] rounded-3xl border border-black/[0.08]" />
         </FadeUp>
         <FadeUp delay={0.1} className="lg:pl-8">
           <p className="font-tech mb-3 text-xs uppercase tracking-[0.3em] text-[var(--primary-soft)]">
@@ -32,7 +32,7 @@ export function CraftEditorial() {
               ["Engineered knit", "Breathable, sock-like lockdown"],
               ["Recycled build", "40% lower carbon footprint"],
             ].map(([t, d]) => (
-              <li key={t} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+              <li key={t} className="rounded-2xl border border-black/[0.08] bg-black/[0.02] p-4">
                 <p className="font-medium">{t}</p>
                 <p className="mt-1 text-xs text-[var(--text-subtle)]">{d}</p>
               </li>

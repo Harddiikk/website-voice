@@ -39,7 +39,7 @@ export function CatalogGrid({
   return (
     <div>
       {/* sticky control bar */}
-      <div className="sticky top-[68px] z-30 -mx-5 mb-8 border-y border-white/10 bg-[var(--bg)]/70 px-5 py-3 backdrop-blur-xl md:mx-0 md:rounded-2xl md:border md:px-4">
+      <div className="sticky top-[68px] z-30 -mx-5 mb-8 border-y border-black/[0.08] bg-[var(--bg)]/70 px-5 py-3 backdrop-blur-xl md:mx-0 md:rounded-2xl md:border md:px-4">
         <div className="flex items-center justify-between gap-4">
           <div className="flex flex-1 gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {chips.map((c) => (
@@ -49,8 +49,8 @@ export function CatalogGrid({
                 className={cn(
                   "shrink-0 rounded-full border px-4 py-2 text-sm transition",
                   category === c
-                    ? "border-[var(--primary)] bg-[rgba(124,92,255,0.15)] text-[var(--text)]"
-                    : "border-white/10 text-[var(--text-muted)] hover:border-white/20 hover:text-[var(--text)]",
+                    ? "border-[var(--primary)] bg-[rgba(0,0,0,0.06)] text-[var(--text)]"
+                    : "border-black/[0.08] text-[var(--text-muted)] hover:border-black/15 hover:text-[var(--text)]",
                 )}
               >
                 {c}
@@ -60,7 +60,7 @@ export function CatalogGrid({
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as Sort)}
-            className="shrink-0 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-[var(--text-muted)] outline-none"
+            className="shrink-0 rounded-full border border-black/[0.08] bg-black/[0.04] px-4 py-2 text-sm text-[var(--text-muted)] outline-none"
             aria-label="Sort products"
           >
             {(Object.keys(sortLabels) as Sort[]).map((s) => (

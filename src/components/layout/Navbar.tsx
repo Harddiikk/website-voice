@@ -55,7 +55,7 @@ export function Navbar() {
                   {active && (
                     <motion.span
                       layoutId="nav-active"
-                      className="absolute inset-0 -z-10 rounded-full bg-white/5 ring-1 ring-white/10"
+                      className="absolute inset-0 -z-10 rounded-full bg-black/[0.04] ring-1 ring-black/[0.08]"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -67,14 +67,14 @@ export function Navbar() {
 
         <div className="flex items-center gap-1">
           <button
-            className="hidden rounded-full p-2.5 text-[var(--text-muted)] transition hover:bg-white/10 hover:text-[var(--text)] sm:grid"
+            className="hidden rounded-full p-2.5 text-[var(--text-muted)] transition hover:bg-black/[0.06] hover:text-[var(--text)] sm:grid"
             aria-label="Search"
           >
             <Search size={18} />
           </button>
           <button
             onClick={() => setOpen(true)}
-            className="relative rounded-full p-2.5 text-[var(--text-muted)] transition hover:bg-white/10 hover:text-[var(--text)]"
+            className="relative rounded-full p-2.5 text-[var(--text-muted)] transition hover:bg-black/[0.06] hover:text-[var(--text)]"
             aria-label="Open bag"
           >
             <ShoppingBag size={18} />
@@ -86,7 +86,7 @@ export function Navbar() {
           </button>
           <button
             onClick={() => setMenuOpen((v) => !v)}
-            className="rounded-full p-2.5 text-[var(--text-muted)] transition hover:bg-white/10 hover:text-[var(--text)] md:hidden"
+            className="rounded-full p-2.5 text-[var(--text-muted)] transition hover:bg-black/[0.06] hover:text-[var(--text)] md:hidden"
             aria-label="Menu"
           >
             {menuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -107,7 +107,7 @@ export function Navbar() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="block rounded-xl px-4 py-3 text-[var(--text-muted)] transition hover:bg-white/5 hover:text-[var(--text)]"
+                    className="block rounded-xl px-4 py-3 text-[var(--text-muted)] transition hover:bg-black/[0.04] hover:text-[var(--text)]"
                   >
                     {link.label}
                   </Link>
