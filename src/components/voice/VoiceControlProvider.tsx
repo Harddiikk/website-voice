@@ -93,7 +93,10 @@ export function VoiceControlProvider({ children }: { children: ReactNode }) {
       const nameIdx = COLOR_NAMES.indexOf(c);
       if (nameIdx >= 0) hex = p.colorways[nameIdx];
       else if (/^\d+$/.test(c)) hex = p.colorways[Number(c) - 1];
-      else if (p.colorways.map((x) => x.toLowerCase()).includes(c)) hex = c;
+      else {
+        const m = p.colorways.find((x) => x.toLowerCase() === c);
+        if (m) hex = m;
+      }
     }
     if (!hex) return { ok: false, message: `That colorway isn't available on the ${p.name}.` };
     setSelection((v) => ({ ...v, color: hex! }));
@@ -112,10 +115,13 @@ export function VoiceControlProvider({ children }: { children: ReactNode }) {
     const p = activeProductRef.current;
     if (!p) return { ok: false, message: "No product is open — open one first." };
     const { size, qty } = selectionRef.current;
-    cartRef.current.addItem(p, size ?? undefined, qty);
-    const sizeStr = size ? ` in size ${size}` : "";
+    if (size == null) {
+      showToast("Select a size first");
+      return { ok: false, message: "No size selected yet — ask the shopper for their US size first." };
+    }
+    cartRef.current.addItem(p, size, qty);
     showToast("Added to bag");
-    return { ok: true, message: `Added ${qty > 1 ? `${qty} ` : ""}${p.name}${sizeStr} to your bag.` };
+    return { ok: true, message: `Added ${qty > 1 ? `${qty} ` : ""}${p.name} in size ${size} to your bag.` };
   }, [showToast]);
 
   const placeOrder = useCallback((): ActionResult => {

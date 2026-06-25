@@ -186,8 +186,9 @@ export function VoiceAgent() {
               case "add_to_cart": {
                 const p = getProduct(fc.args?.productId);
                 if (p) {
-                  addItem(p, fc.args?.size);
-                  result = `added ${p.name} to the bag`;
+                  const sz = fc.args?.size != null ? Number(fc.args.size) : undefined;
+                  addItem(p, sz);
+                  result = `added ${p.name}${sz != null ? ` in size ${sz}` : ""} to the bag`;
                 } else result = "product not found";
                 break;
               }
@@ -206,7 +207,7 @@ export function VoiceAgent() {
                 result = voiceControl.selectSize(Number(fc.args?.size)).message;
                 break;
               case "select_color":
-                result = voiceControl.selectColor(fc.args?.colorway ?? fc.args?.color).message;
+                result = voiceControl.selectColor(fc.args?.colorway).message;
                 break;
               case "set_quantity":
                 result = voiceControl.setQty(Number(fc.args?.quantity)).message;

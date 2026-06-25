@@ -28,7 +28,8 @@ export function ProductDetailClient({ product }: { product: Product }) {
   const qty = selection.qty;
 
   function handleAdd() {
-    addActiveToCart();
+    const r = addActiveToCart();
+    if (!r.ok) return; // e.g. no size selected — the provider shows a toast
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   }
