@@ -8,8 +8,10 @@ export type Product = {
   /** Colorway hex values; index 0 is treated as the primary. */
   colorways: string[];
   sizes: number[];
-  /** Layered CSS gradient string used to render the product placeholder. */
+  /** Layered CSS gradient string used as the image backdrop / fallback. */
   gradient: string;
+  /** Self-hosted product photo path under /public. */
+  image: string;
   description: string;
   /** Optional pill label shown on the card, e.g. "New", "Pro". */
   badge: string | null;

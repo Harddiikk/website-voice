@@ -5,7 +5,7 @@ import type { Product } from "@/types";
  * SVG silhouettes, no external image service — so the store is fully self-hosted.
  * Swap `gradient`/add real images later without touching the rest of the app.
  */
-export const products: Product[] = [
+const rawProducts: Omit<Product, "image">[] = [
   {
     id: "aether-runner",
     name: "Aether Runner",
@@ -199,6 +199,12 @@ export const products: Product[] = [
     reviews: 154,
   },
 ];
+
+/** Catalog with self-hosted product photos derived from each id. */
+export const products: Product[] = rawProducts.map((p) => ({
+  ...p,
+  image: `/products/${p.id}.jpg`,
+}));
 
 export function getAllProducts(): Product[] {
   return products;

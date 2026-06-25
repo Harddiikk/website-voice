@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus, ShoppingBag, X } from "lucide-react";
 import Link from "next/link";
 import { useCart } from "@/components/cart/CartProvider";
-import { SneakerMark } from "@/components/product/SneakerMark";
 import { formatPrice } from "@/lib/utils";
 
 export function CartSheet() {
@@ -68,11 +67,12 @@ export function CartSheet() {
                         className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl"
                         style={{ background: line.product.gradient }}
                       >
-                        <SneakerMark
-                          primary={line.product.colorways[0]}
-                          accent={line.product.colorways[1]}
-                          sole={line.product.colorways[2]}
-                          className="scale-110 p-1"
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={line.product.image}
+                          alt={line.product.name}
+                          loading="lazy"
+                          className="h-full w-full object-cover"
                         />
                       </Link>
                       <div className="flex flex-1 flex-col">

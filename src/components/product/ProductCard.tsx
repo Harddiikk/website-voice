@@ -35,7 +35,7 @@ export function ProductCard({ product, className }: { product: Product; classNam
         <ProductPlaceholder
           product={product}
           className="aspect-square rounded-2xl"
-          shoeClassName="group-hover:scale-105 group-hover:-rotate-2"
+          shoeClassName="group-hover:scale-[1.05]"
         />
         <div className="absolute left-3 top-3 flex gap-2">
           {product.badge && <Badge>{product.badge}</Badge>}
