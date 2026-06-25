@@ -1,26 +1,236 @@
+/* ============================================================
+   AURELIA — Premium Sneaker House Design Tokens (Tailwind v4)
+   Fonts are loaded via next/font/google in layout.tsx and exposed
+   as --font-syne / --font-inter / --font-grotesk on <html>.
+   ============================================================ */
+
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ---- Surfaces (dark luxury) ---- */
+  --bg:            #07070B;
+  --surface-1:     #0C0C12;
+  --surface-2:     #14141C;
+  --surface-3:     #1C1C26;
+  --glass-fill:    rgba(255,255,255,0.05);
+  --glass-fill-2:  rgba(255,255,255,0.08);
+  --border:        rgba(255,255,255,0.10);
+  --border-strong: rgba(255,255,255,0.16);
+
+  /* ---- Brand / accents ---- */
+  --primary:       #7C5CFF;
+  --primary-soft:  #A78BFA;
+  --cyan:          #22D3EE;
+  --magenta:       #FF6FB5;
+  --gold:          #E8B873;
+  --gold-soft:     #F5D9A8;
+
+  /* ---- Text ---- */
+  --text:          #F5F5F7;
+  --text-muted:    #A6A6B5;
+  --text-subtle:   #5C5C6E;
+
+  /* ---- Status ---- */
+  --success:       #34D399;
+  --danger:        #F87171;
+
+  /* ---- Radius ---- */
+  --r-sm: 10px; --r-md: 16px; --r-lg: 24px; --r-xl: 32px; --r-pill: 999px;
+
+  /* ---- Blur ---- */
+  --blur-glass: 18px;
+
+  /* ---- Motion ---- */
+  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 180ms; --dur: 320ms; --dur-slow: 620ms;
+
+  /* ---- Gradients ---- */
+  --grad-aurora:
+    radial-gradient(ellipse 80% 60% at 18% 8%,   rgba(124,92,255,0.38), transparent 60%),
+    radial-gradient(ellipse 70% 55% at 86% 18%,  rgba(34,211,238,0.22), transparent 55%),
+    radial-gradient(ellipse 95% 75% at 60% 100%, rgba(255,111,181,0.18), transparent 62%),
+    radial-gradient(circle  at 50% 50%, #0B0B14, #07070B 72%);
+  --grad-primary:     linear-gradient(135deg, #7C5CFF 0%, #9B5CFF 45%, #FF6FB5 100%);
+  --grad-gold:        linear-gradient(90deg, #C99B5E 0%, #E8B873 35%, #F5D9A8 60%, #C99B5E 100%);
+  --grad-iris-text:   linear-gradient(100deg, #FFFFFF 0%, #A78BFA 50%, #22D3EE 100%);
+  --grad-glass:       linear-gradient(160deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+  --grad-iris-border: conic-gradient(from 180deg at 50% 50%, #7C5CFF, #22D3EE, #FF6FB5, #E8B873, #7C5CFF);
+  --grad-spot:        radial-gradient(circle at 50% 38%, rgba(124,92,255,0.30) 0%, rgba(34,211,238,0.10) 38%, transparent 70%);
+
+  /* ---- Shadows / glow ---- */
+  --glow-primary:  0 10px 40px -8px rgba(124,92,255,0.55), inset 0 0 0 1px rgba(255,255,255,0.08);
+  --glow-magenta:  0 10px 40px -8px rgba(255,111,181,0.50);
+  --shadow-card:   0 24px 60px -24px rgba(0,0,0,0.80);
+  --shadow-float:  0 40px 120px -30px rgba(124,92,255,0.35), 0 24px 60px -24px rgba(0,0,0,0.80);
 }
 
+/* Tailwind v4 theme mapping → bg-bg, text-muted, font-display, etc.
+   Fonts resolve to the next/font variables set on <html>. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg:        var(--bg);
+  --color-surface:   var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-primary:   var(--primary);
+  --color-primary-soft: var(--primary-soft);
+  --color-cyan:      var(--cyan);
+  --color-magenta:   var(--magenta);
+  --color-gold:      var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-text:      var(--text);
+  --color-muted:     var(--text-muted);
+  --color-subtle:    var(--text-subtle);
+  --color-success:   var(--success);
+  --color-danger:    var(--danger);
+  --color-border:    var(--border);
+  --radius-sm:       var(--r-sm);
+  --radius-md:       var(--r-md);
+  --radius-lg:       var(--r-lg);
+  --radius-xl:       var(--r-xl);
+  --font-display:    var(--font-syne), ui-sans-serif, sans-serif;
+  --font-sans:       var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:       var(--font-grotesk), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ---- Base (layered so Tailwind utilities still win) ---- */
+@layer base {
+  html { color-scheme: dark; scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01","cv01";
   }
+  ::selection { background: rgba(124,92,255,0.35); color: #fff; }
+  :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+  /* thin custom scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 999px; border: 2px solid var(--bg); }
+  ::-webkit-scrollbar-thumb:hover { background: #2a2a38; }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ---- Typography helpers ---- */
+.font-display { font-family: var(--font-syne), ui-sans-serif, sans-serif; letter-spacing: -0.03em; }
+.font-tech    { font-family: var(--font-grotesk), ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+.tnum         { font-variant-numeric: tabular-nums; }
+
+/* ---- Backgrounds ---- */
+.aurora       { background: var(--grad-aurora); }
+.spotlight-bg { background: var(--grad-spot); }
+.shadow-float { box-shadow: var(--shadow-float); }
+.shadow-card  { box-shadow: var(--shadow-card); }
+
+.glass {
+  background: var(--grad-glass);
+  backdrop-filter: blur(var(--blur-glass)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(140%);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.glass-nav {
+  background: linear-gradient(180deg, rgba(12,12,18,0.72), rgba(12,12,18,0.55));
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ---- Gradient text ---- */
+.text-gradient-gold {
+  background: var(--grad-gold);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.text-gradient-iris {
+  background: var(--grad-iris-text);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* ---- Buttons ---- */
+.btn-primary {
+  background: var(--grad-primary);
+  color: #fff; border-radius: var(--r-pill);
+  padding: 0.9rem 1.6rem; font-weight: 600;
+  box-shadow: var(--glow-primary);
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+}
+.btn-primary:hover  { box-shadow: 0 14px 50px -8px rgba(124,92,255,0.70), inset 0 0 0 1px rgba(255,255,255,0.12); }
+.btn-primary:active { transform: scale(0.97); }
+
+.btn-glass {
+  background: var(--glass-fill); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--r-pill);
+  padding: 0.9rem 1.6rem; font-weight: 500;
+  backdrop-filter: blur(12px);
+  transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+}
+.btn-glass:hover { background: var(--glass-fill-2); border-color: var(--border-strong); }
+
+/* Iridescent gradient border (mask trick) */
+.border-iris { position: relative; border-radius: var(--r-lg); }
+.border-iris::before {
+  content:""; position:absolute; inset:0; padding:1px; border-radius:inherit;
+  background: var(--grad-iris-border);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity:.55; transition: opacity var(--dur) var(--ease-out);
+  pointer-events: none;
+}
+.border-iris:hover::before { opacity: 1; }
+
+/* Cursor-follow spotlight card — set --mx/--my (%) in JS on mousemove */
+.spotlight-card { position: relative; overflow: hidden; }
+.spotlight-card::after {
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: radial-gradient(600px circle at var(--mx,50%) var(--my,0%), rgba(124,92,255,0.18), transparent 40%);
+  opacity:0; transition: opacity var(--dur) var(--ease-out);
+}
+.spotlight-card:hover::after { opacity:1; }
+
+/* Form fields */
+.field-input {
+  width: 100%;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color var(--dur) var(--ease-out), background var(--dur) var(--ease-out);
+}
+.field-input::placeholder { color: var(--text-subtle); }
+.field-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.06); }
+
+/* Shimmer skeleton */
+.skeleton {
+  background: linear-gradient(100deg, rgba(255,255,255,0.04) 30%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.04) 70%);
+  background-size: 200% 100%; animation: shimmer 1.4s infinite var(--ease-out);
+  border-radius: var(--r-md);
+}
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+/* Marquee */
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 28s linear infinite; }
+
+/* Slow float for hero shoe */
+@keyframes floaty { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-16px) rotate(-1.2deg); } }
+.animate-floaty { animation: floaty 6s ease-in-out infinite; }
+
+/* Aurora blob drift */
+@keyframes drift { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(4%, -3%, 0) scale(1.08); } }
+.animate-drift { animation: drift 18s ease-in-out infinite; }
+
+/* Voice orb pulse rings */
+@keyframes orbpulse { 0% { transform: scale(0.85); opacity: 0.7; } 100% { transform: scale(2.2); opacity: 0; } }
+
+.max-w-site { max-width: 1280px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:.001ms !important; animation-iteration-count: 1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
 }

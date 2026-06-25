@@ -1,0 +1,28 @@
+# Dependencies & build output (reinstalled / rebuilt in the image)
+node_modules
+.next
+out
+build
+
+# Secrets — never bake into an image layer (Coolify injects at runtime)
+.env
+.env.*
+!.env.example
+
+# VCS & tooling
+.git
+.gitignore
+.github
+
+# Docs & deploy recipes not needed at runtime
+README.md
+DEPLOY.md
+COOLIFY.md
+deploy
+
+# Editor / OS cruft
+.vscode
+.idea
+.DS_Store
+*.log
+.claude
